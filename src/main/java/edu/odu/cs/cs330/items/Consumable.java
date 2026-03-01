@@ -51,7 +51,10 @@ public class Consumable extends Item {
     {
         // Complete this function.
         // Update/replace the call to super
-        super("[Placeholder]", true);
+        super(src.name, src.stackable);
+        
+        this.effect = src.effect;
+        this.uses = src.uses;
     }
 
     /**
@@ -101,7 +104,8 @@ public class Consumable extends Item {
     public void read(Scanner snr)
     {
         super.name    = snr.next();
-
+        this.effect =snr.next();
+        this.uses = Integer.valueOf(snr.next());
         // Complete this function.
     }
 
@@ -114,7 +118,10 @@ public class Consumable extends Item {
         Consumable cpy = new Consumable();
 
         // Complete this function.
-
+        cpy.name = this.name;
+        cpy.stackable = this.stackable;
+        cpy.effect = this.effect;
+        cpy.uses = this.uses;
         return cpy;
     }
 
@@ -133,7 +140,7 @@ public class Consumable extends Item {
         Consumable rhsItem = (Consumable) rhs;
 
         // Use the provided return as a start/hint
-        return this.name.equals(rhsItem.name);
+        return this.name.equals(rhsItem.name) && this.effect.equals(rhsItem.effect);
     }
 
     /**
@@ -146,7 +153,7 @@ public class Consumable extends Item {
     public int hashCode()
     {
         // Use the provided return as a start/hint
-        return this.name.hashCode();
+        return this.name.hashCode() + this.effect.hashCode();
     }
 
     /**
@@ -159,6 +166,8 @@ public class Consumable extends Item {
         return String.join(
             System.lineSeparator(),
             String.format("  Nme: %s", super.getName()),
+            String.format("  Eft: %s", this.getEffect()),
+            String.format("  Use: %s", this.getNumberOfUses()),
             ""
         );
     }
